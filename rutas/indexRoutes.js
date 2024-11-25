@@ -12,6 +12,20 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Obtener un cliente por ID
+router.get("/:id", async (req, res) => {
+    try {
+      const cliente = await Cliente.findById(req.params.id);
+      if (!cliente) {
+        return res.status(404).json({ error: "Cliente no encontrado" });
+      }
+      res.json(cliente);
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
+  });
+  
+
 // Crear un cliente
 router.post("/", async (req, res) => {
   try {
